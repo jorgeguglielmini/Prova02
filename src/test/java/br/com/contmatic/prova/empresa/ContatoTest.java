@@ -9,15 +9,18 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import br.com.contmatic.prova.empresa.enums.DDD;
 import br.com.contmatic.prova.empresa.gerador.Gerador;
 
 public class ContatoTest {
+	
     private Contato contato;
+    
     private Telefone telefone;
 
     @Before
     public void iniciar() {
-        telefone = new Telefone("11", "123456789");
+        telefone = new Telefone(DDD.DDD_11, "123456789");
         contato = new Contato("jorge.guglielmini@gmail.com", telefone);
     }
 

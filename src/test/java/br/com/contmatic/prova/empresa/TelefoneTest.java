@@ -1,25 +1,23 @@
 package br.com.contmatic.prova.empresa;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
-import org.junit.FixMethodOrder;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.runners.MethodSorters;
 
+import br.com.contmatic.prova.empresa.enums.DDD;
 import br.com.contmatic.prova.empresa.gerador.Gerador;
+import br.com.six2six.fixturefactory.Fixture;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TelefoneTest {
 
 	private Telefone telefone;
 
 	@Before
 	public void iniciar() {
-		telefone = new Telefone("11", "123456789");
+		telefone = Fixture.from(Telefone.class).gimme("valido");
 	}
 
 	@Ignore
@@ -31,23 +29,13 @@ public class TelefoneTest {
 	@Test(timeout = 1000)
 	public void step_02_teste_timeout() {
 		for (int i = 0; i < 10; i++) {
-			new Telefone("11", "123456789");
+			new Telefone(DDD.DDD_11, "123456789");
 		}
 	}
 
 	@Test
-	public void step_03_deve_gerar_uma_string_aleatoria_com_a_quantidade_de_caracteres_dados() {
-		System.out.println(Gerador.geraStringAleatoria(Gerador.geraNumeroAleatorio(2, 5)));
-	}
-
-	@Test
-	public void step_04_deve_exibir_um_numero_aleatorio_entre_o_intervalo_fornecido() {
-		System.out.println(Gerador.geraNumeroAleatorio(0, 100));
-	}
-
-	@Test
 	public void step_05_deve_aceitar_atributo_ddd_valido() {
-		telefone.setDdd(Telefone.DDD[Gerador.geraNumeroAleatorio(0, Telefone.DDD.length - 1)]);
+
 	}
 
 	@Test(expected = IllegalArgumentException.class)
