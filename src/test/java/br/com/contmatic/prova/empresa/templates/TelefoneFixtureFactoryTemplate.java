@@ -14,7 +14,7 @@ public class TelefoneFixtureFactoryTemplate implements TemplateLoader {
 	public void load() {
 		Fixture.of(Telefone.class).addTemplate("valido", new Rule() {{
 			add("ddd", DDD.values()[RandomUtils.nextInt(0, DDD.values().length)]);
-			add("numero", regex("^[1-9]{1}[0-9]{7,8}"));
+			add("numero", random("123456789"));
 		}});
 		
 		Fixture.of(Telefone.class).addTemplate("atributo numero com menos de 7 dígitos").inherits("valido" , new Rule() {{

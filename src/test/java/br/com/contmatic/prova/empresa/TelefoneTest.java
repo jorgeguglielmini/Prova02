@@ -4,17 +4,25 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import br.com.contmatic.prova.empresa.enums.DDD;
 import br.com.contmatic.prova.empresa.gerador.Gerador;
+import br.com.contmatic.prova.empresa.templates.TelefoneFixtureFactoryTemplate;
+import br.com.contmatic.prova.testutils.Validacao;
 import br.com.six2six.fixturefactory.Fixture;
 
 public class TelefoneTest {
 
 	private Telefone telefone;
 
+	@BeforeClass
+	public static void setup() {
+	    new TelefoneFixtureFactoryTemplate().load();
+	}
+	
 	@Before
 	public void iniciar() {
 		telefone = Fixture.from(Telefone.class).gimme("valido");
@@ -35,7 +43,7 @@ public class TelefoneTest {
 
 	@Test
 	public void step_05_deve_aceitar_atributo_ddd_valido() {
-
+	    assertTrue(Validacao.Valida(telefone));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -171,18 +179,6 @@ public class TelefoneTest {
 	    long numero1 = Gerador.geraNumeroAleatorio(10000, 99999);
 		long numero2 = Gerador.geraNumeroAleatorio(1000, 9999);
 		telefone.setNumero(Long.toString(numero1 + numero2) + " ");
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void step_24_nao_deve_aceitar_espacos_em_branco_no_final_do_atributo_ddd() {
-		String ddd = Telefone.DDD[Gerador.geraNumeroAleatorio(0, Telefone.DDD.length - 1)];
-		telefone.setDdd(" " + ddd);
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void step_25_nao_deve_aceitar_espacos_em_branco_no_inicio_do_atributo_ddd() {
-		String ddd = Telefone.DDD[Gerador.geraNumeroAleatorio(0, Telefone.DDD.length - 1)];
-		telefone.setDdd(ddd + " ");
 	}
 
 	@Test(expected = IllegalArgumentException.class)
