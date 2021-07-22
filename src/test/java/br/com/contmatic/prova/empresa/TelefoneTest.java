@@ -1,5 +1,7 @@
 package br.com.contmatic.prova.empresa;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
@@ -16,119 +18,98 @@ import nl.jqno.equalsverifier.Warning;
 
 public class TelefoneTest {
 
-	private Telefone telefone;
+    private Telefone telefone;
 
-	@BeforeClass
-	public static void setup() {
-	    new TelefoneFixtureFactoryTemplate().load();
-	}
-	
-	@Before
-	public void iniciar() {
-		telefone = Fixture.from(Telefone.class).gimme("valido");
-	}
-
-	@Ignore
-	@Test
-	public void step_01_teste_para_ser_ignorado() {
-		System.out.println("eu sei que essa mensagem não vai ser printada");
-	}
-
-	@Test(timeout = 1000)
-	public void step_02_teste_timeout() {
-		for (int i = 0; i < 10; i++) {
-			new Telefone(DDD.DDD_11, "123456789");
-		}
-	}
-
-	@Test
-	public void step_05_deve_aceitar_atributo_ddd_valido() {
-	    assertTrue(Validacao.Valida(telefone));
-	}
-
-	@Test
-	public void step_06_nao_deve_aceitar_atributo_numero_com_letras() {
-	}
-
-	@Test
-	public void step_08_nao_deve_aceitar_atributo_numero_com_letras_e_numeros() {
-		
-	}
-
-	
-
-	@Test
-	public void step_10_nao_deve_aceitar_atributo_numero_nulo() {
-		
-	}
-
-	@Test
-	public void step_11_nao_deve_aceitar_atributo_ddd_nulo() {
-		
-	}
-
-	@Test
-	public void step_12_deve_aceitar_atributo_numero_com_nove_digitos() {
-	}
-
-	
-
-	@Test
-	public void step_14_deve_aceitar_atributo_numero_com_oito_digitos() {
-
-
-	}
-
-	@Test
-	public void step_15_nao_deve_aceitar_atributo_numero_menor_de_oito_digitos() {
-	}
-
-	@Test
-	public void step_16_nao_deve_aceitar_atributo_numero_maior_de_nove_digitos() {
-	}
-
-	
-	
-
-	@Test
-	public void step_18_nao_deve_receber_atributo_numero_vazio() {
-	
-	}
-
-	
-
-	@Test
-	public void step_20_nao_deve_receber_atributo_numero_com_espacos_em_branco() {
-		telefone.setNumero("                 ");
-	}
-
-	@Test
-    public void step_21_nao_deve_aceitar_espacos_em_branco_no_inicio_do_atributo_numero_dado_8_numeros() {
-	   
+    @BeforeClass
+    public static void setup() {
+        new TelefoneFixtureFactoryTemplate().load();
     }
 
+    @Before
+    public void iniciar() {
+        telefone = Fixture.from(Telefone.class).gimme("valido");
+    }
 
-	@Test
-	public void step_22_nao_deve_aceitar_espacos_em_branco_no_final_do_atributo_numero_dado_8_numeros() {
-	   
-	}
+    @Ignore
+    @Test
+    public void step_01_teste_ignore() {
+        System.out.println("Mensagem não será exibida pois há a annotation @Ignore");
+    }
 
-	@Test
-	public void step_48_nao_deve_aceitar_espacos_em_branco_no_inicio_do_atributo_numero_dado_9_numeros() {
-	    
-	}
+    @Test(timeout = 100)
+    public void step_02_teste_timeout() {
+        for(int i = 0 ; i < 10 ; i++) {
+            new Telefone(DDD.DDD_11, "123456789");
+        }
+    }
 
-	@Test
-	public void step_23_nao_deve_aceitar_espacos_em_branco_no_final_do_atributo_numero_dado_9_numeros() {
-	    
-	}
+    @Test
+    public void step_03_todos_atributos_validos() {
+        assertTrue(Validacao.Valida(telefone));
+    }
 
-	@Test
-	public void equals_verifier() {
-	    EqualsVerifier.forClass(Telefone.class).suppress(Warning.NONFINAL_FIELDS).verify();
-	}
+    @Test
+    public void step_04_atributo_numero_com_menos_de_8_digitos() {
+        telefone = Fixture.from(Telefone.class).gimme("atributo numero com menos de 8 dígitos");
+        assertFalse(Validacao.Valida(telefone));
+    }
 
+    @Test
+    public void step_05_atributo_numero_com_mais_de_9_digitos() {
+        telefone = Fixture.from(Telefone.class).gimme("atributo numero com mais de 9 dígitos");
+        assertFalse(Validacao.Valida(telefone));
+    }
 
-//teste hashcode equals e tostring
+    @Test
+    public void step_06_atributo_numero_com_digito_0_no_inicio() {
+        telefone = Fixture.from(Telefone.class).gimme("atributo numero com digito 0 no início e contendo a quantidade correta de digitos");
+        assertFalse(Validacao.Valida(telefone));
+    }
 
+    @Test
+    public void step_07_nao_deve_aceitar_atributo_ddd_nulo() {
+        telefone.setDdd(null);
+        assertFalse(Validacao.Valida(telefone));
+    }
+    
+    @Test
+    public void step_08_nao_deve_aceitar_atributo_numero_nulo() {
+        telefone.setNumero(null);
+        assertFalse(Validacao.Valida(telefone));
+    }
+    
+    @Test
+    public void step_09_nao_deve_aceitar_atributo_numero_com_caracteres_alfabeticos() {
+        telefone = Fixture.from(Telefone.class).gimme("atributo numero com caracteres alfabeticos");
+        assertFalse(Validacao.Valida(telefone));
+    }
+    
+    @Test
+    public void step_10_nao_deve_aceitar_atributo_numero_com_caracteres_alfabeticos_e_numericos() {
+        telefone = Fixture.from(Telefone.class).gimme("atributo numero com caracteres alfabeticos e numericos");
+        assertFalse(Validacao.Valida(telefone));
+    }
+    
+    @Test
+    public void step_11_nao_deve_aceitar_atributo_numero_com_espaco_espaco_em_branco_no_inicio() {
+        telefone = Fixture.from(Telefone.class).gimme("atributo numero com espaco em branco no inicio");
+        assertFalse(Validacao.Valida(telefone));
+    }
+    
+    @Test
+    public void step_12_nao_deve_aceitar_atributo_numero_com_espaco_espaco_em_branco_no_final() {
+        telefone = Fixture.from(Telefone.class).gimme("atributo numero com espaco em branco no final");
+        assertFalse(Validacao.Valida(telefone));
+    }
+
+    @Test
+    public void equals_verifier() {
+        EqualsVerifier.forClass(Telefone.class).suppress(Warning.NONFINAL_FIELDS).verify();
+    }
+    
+    @Test
+    public void teste_toString() {
+        Telefone telefone1 = new Telefone(DDD.DDD_11, "12345678");
+        assertEquals("{\"numero\":\"12345678\",\"ddd\":\"DDD_11\"}",telefone1.toString());
+    }
 }
