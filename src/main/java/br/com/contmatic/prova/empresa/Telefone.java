@@ -41,12 +41,12 @@ public class Telefone {
 	}
 
 	@Override
-	public int hashCode() {
+	public final int hashCode() {
 		return new HashCodeBuilder().append(this.ddd).append(this.numero).hashCode();
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public final boolean equals(Object obj) {
 		if(obj instanceof Telefone) {
 			Telefone telefone = (Telefone) obj;
 			return new EqualsBuilder().append(this.ddd, telefone.ddd).append(this.numero, telefone.numero).isEquals();

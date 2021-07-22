@@ -14,19 +14,19 @@ public class TelefoneFixtureFactoryTemplate implements TemplateLoader {
 	public void load() {
 		Fixture.of(Telefone.class).addTemplate("valido", new Rule() {{
 			add("ddd", DDD.values()[RandomUtils.nextInt(0, DDD.values().length)]);
-			add("numero", random("123456789"));
+			add("numero", random("123456789","235689784","45781232","123654987","258147963","98765432","35795128"));
 		}});
 		
 		Fixture.of(Telefone.class).addTemplate("atributo numero com menos de 7 dígitos").inherits("valido" , new Rule() {{
-			add("numero", regex("^[1-9]{1}[0-9]{1-5}"));
+			add("numero", random("123456","5689784","457","87","2","5432","95128"));
 		}});
 		
 		Fixture.of(Telefone.class).addTemplate("atributo numero com mais de 9 dígitos").inherits("valido" , new Rule() {{
-			add("numero", regex("^[1-9]{1}[0-9]{9,15}"));
+			add("numero", random("1234516789","23568978412","457812312122","1236549871234","25814796312345","98765432321423","3579512832143243"));
 		}});
 		
 		Fixture.of(Telefone.class).addTemplate("atributo numero com digito 0 no início e contendo a quantidade correta de digitos").inherits("valido" , new Rule() {{
-			add("numero", regex("^[0]{1}[1-9]{7,8}"));
+			add("numero", random("023456789","035689784","05781232","023654987","058147963","08765432","05795128"));
 		}});
 	}
 	
