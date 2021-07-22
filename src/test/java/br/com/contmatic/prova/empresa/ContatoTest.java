@@ -1,44 +1,35 @@
 package br.com.contmatic.prova.empresa;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import br.com.contmatic.prova.empresa.enums.DDD;
+import br.com.contmatic.prova.empresa.templates.ContatoFixtureFactoryTemplate;
+import br.com.contmatic.prova.testutils.Validacao;
+import br.com.six2six.fixturefactory.Fixture;
 
 public class ContatoTest {
-	
+
     private Contato contato;
     
     private Telefone telefone;
-
+    
+    @BeforeClass
+    public static void setup() {
+        new ContatoFixtureFactoryTemplate().load();
+    }
+    
     @Before
     public void iniciar() {
-        telefone = new Telefone(DDD.DDD_11, "123456789");
-        contato = new Contato("jorge.guglielmini@gmail.com", telefone);
-    }
-
-    @After
-    public void finalizar() {
-    }
-
-    @BeforeClass
-    public static void antes_da_classe() {
-        System.out.println("Essa mensagem está sendo exibida uma única vez no início");
-    }
-
-    @AfterClass
-    public static void depois_da_classe() {
-        System.out.println("Essa mensagem está sendo exibida uma única vez no final");
+        contato = Fixture.from(Contato.class).gimme("valido");
     }
 
     @Test
-    public void nao_deve_aceitar_atributo_email_nulo() {
-
+    public void todos_atributos_validos() {
+        assertTrue(Validacao.Valida(contato));
     }
 
     @Test
@@ -68,13 +59,13 @@ public class ContatoTest {
     @Test
     public void nao_deve_aceitar_no_atributo_email_uma_quantidade_de_caracteres_maior_que_200_no_atributo_email() {
     }
-    
+
     @Test
     public void teste_toString() {
         Contato contato1 = new Contato("jorge.guglielmini@gmail.com", telefone);
         System.out.println(contato1);
         assertEquals("Contato [email=email, telefone=Telefone [ddd=11, numero=123456789]]", contato1.toString());
-        //como está o sysout do contato:
-        //{"email":"jorge.guglielmini@gmail.com","telefone":{"numero":"123456789","ddd":"DDD_11"}}
+        // como está o sysout do contato:
+        // {"email":"jorge.guglielmini@gmail.com","telefone":{"numero":"123456789","ddd":"DDD_11"}}
     }
 }

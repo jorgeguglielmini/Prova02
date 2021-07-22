@@ -12,7 +12,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class Contato {
 
     @NotNull
-    @Pattern(regexp = ("^([A-Za-z0-9._%+-]{4,20})+@([a-z0-9.-]{2,10})?([a-z]{2,4})"), message = "e-mail inválido")
+    @Pattern(regexp = ("^([A-Za-z0-9._%+-]{4,20})+@([a-z0-9.-]{2,15})?([a-z]{2,4})"), message = "e-mail inválido")
     private String email;
 
     @Valid
