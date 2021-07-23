@@ -12,7 +12,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class Contato {
 
     @NotNull
-    @Pattern(regexp = ("^([A-Za-z0-9._%+-]{4,20})+@([a-z0-9.-]{2,15})?([a-z]{2,4})"), message = "e-mail inválido")
+    @Pattern(regexp = ("^([A-Za-z0-9._%+-]{4,20})+@([a-z0-9]{2,10})+([a-z.]{2,4})?([a-z.]{2,4})"), message = "e-mail inválido")
     private String email;
 
     @Valid
@@ -41,12 +41,12 @@ public class Contato {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return new HashCodeBuilder().append(this.email).append(this.telefone).hashCode();
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public final boolean equals(Object obj) {
         if (obj instanceof Contato) {
             Contato contato = (Contato) obj;
             return new EqualsBuilder().append(this.email, contato.email).append(this.telefone, contato.telefone).isEquals();

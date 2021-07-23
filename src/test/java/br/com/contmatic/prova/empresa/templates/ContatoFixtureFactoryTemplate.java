@@ -8,10 +8,13 @@ import br.com.six2six.fixturefactory.loader.TemplateLoader;
 
 public class ContatoFixtureFactoryTemplate implements TemplateLoader {
 
-    Telefone telefone = Fixture.from(Telefone.class).gimme("valido");
 
     @Override
     public void load() {
+        new TelefoneFixtureFactoryTemplate().load();
+
+        Telefone telefone = Fixture.from(Telefone.class).gimme("valido");
+        
         Fixture.of(Contato.class).addTemplate("valido", new Rule() {
             {
                 add("email", random("jorgeguglielmini@gmail.com","jorge_luiz.m.g@hotmail.com","jorge.luiz@contmatic.com.br"));
@@ -19,7 +22,17 @@ public class ContatoFixtureFactoryTemplate implements TemplateLoader {
             }
         });
         
+        Fixture.of(Contato.class).addTemplate("atributo email com espaco em branco no inicio").inherits("valido", new Rule() {
+            {
+                add("email", random(" jorgeguglielmini@gmail.com"," jorge_luiz.m.g@hotmail.com"," jorge.luiz@contmatic.com.br"));
+            }
+        });
         
+        Fixture.of(Contato.class).addTemplate("atributo email com espaco em branco no final").inherits("valido", new Rule() {
+            {
+                add("email", random("jorgeguglielmini@gmail.com ","jorge_luiz.m.g@hotmail.com ","jorge.luiz@contmatic.com.br "));
+            }
+        });
     }
 
 }
