@@ -49,10 +49,6 @@ public class ContatoTest {
     }
 
     @Test
-    public void nao_deve_aceitar_atributo_email_apenas_com_espacos_em_branco() {
-    }
-
-    @Test
     public void nao_deve_aceitar_atributo_email_com_espacos_em_branco_no_inicio() {
         contato = Fixture.from(Contato.class).gimme("atributo email com espaco em branco no inicio");
         assertFalse(Validacao.Valida(contato));
@@ -62,14 +58,6 @@ public class ContatoTest {
     public void nao_deve_aceitar_atributo_email_com_espacos_em_branco_no_final() {
         contato = Fixture.from(Contato.class).gimme("atributo email com espaco em branco no final");
         assertFalse(Validacao.Valida(contato));
-    }
-
-    @Test
-    public void deve_aceitar_no_atributo_email_uma_quantidade_de_caracteres_que_esteja_entre_1_e_199() {
-    }
-
-    @Test
-    public void nao_deve_aceitar_no_atributo_email_uma_quantidade_de_caracteres_maior_que_200_no_atributo_email() {
     }
     
     @Test

@@ -33,6 +33,6 @@ public class ContatoFixtureFactoryTemplate implements TemplateLoader {
                 add("email", random("jorgeguglielmini@gmail.com ","jorge_luiz.m.g@hotmail.com ","jorge.luiz@contmatic.com.br "));
             }
         });
+        
     }
-
 }

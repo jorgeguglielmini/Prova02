@@ -1,13 +1,20 @@
 package br.com.contmatic.prova.empresa;
 
-import static br.com.contmatic.prova.empresa.validar.Validacao.assertNotBlank;
-import static br.com.contmatic.prova.empresa.validar.Validacao.verificaNulidade;
-import static br.com.contmatic.prova.empresa.validar.Validacao.verificaSomenteLetras;
-import static br.com.contmatic.prova.empresa.validar.Validacao.verificaTamanhoDepartamento;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
+import br.com.contmatic.prova.empresa.validar.ConstantesMensagem;
 
 public class Departamento {
 
-	private String nome;
+	@NotNull
+	@Size(min=2, max=100, message= ConstantesMensagem.NOME_DEPARTAMENTO_INVALIDO)
+    private String nome;
 	
 	public Departamento(String nome) {
 		this.setNome(nome);
@@ -18,41 +25,22 @@ public class Departamento {
 	}
 
 	public void setNome(String nome) {
-		verificaNulidade(nome, "Nome");
-		assertNotBlank(nome,"Nome");
-		verificaSomenteLetras(nome, "Departamento");
-		verificaTamanhoDepartamento(nome);
 		this.nome = nome;
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-		return result;
+	public final int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this);
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Departamento other = (Departamento) obj;
-		if (nome == null) {
-			if (other.nome != null)
-				return false;
-		} else if (!nome.equals(other.nome))
-			return false;
-		return true;
+	public final boolean equals(Object obj) {
+		return EqualsBuilder.reflectionEquals(this, obj);
 	}
 
 	@Override
 	public String toString() {
-		return "Departamento [nome=" + nome + "]";
+	    return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
 	}
 
 }
