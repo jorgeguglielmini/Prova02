@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import br.com.contmatic.prova.empresa.gerador.Gerador;
 import br.com.contmatic.prova.empresa.templates.DepartamentoFixtureFactoryTemplate;
 import br.com.contmatic.prova.testutils.Validacao;
 import br.com.six2six.fixturefactory.Fixture;
@@ -37,6 +36,7 @@ public class DepartamentoTest {
 
 	@Test
 	public void deve_aceitar_atributo_nome_valido() {
+	    System.out.println(departamento);
 	    assertTrue(Validacao.Valida(departamento));
 	}
 
@@ -52,15 +52,23 @@ public class DepartamentoTest {
 		assertFalse(Validacao.Valida(departamento));
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void nao_deve_aceitar_quantidade_de_caracteres_maior_que_200_no_atributo_nome() {
-		departamento.setNome(Gerador.geraStringAleatoria(Gerador.geraNumeroAleatorio(200, 1000)));
-	}
+	@Test
+    public void nao_deve_aceitar_atributo_nome_com_apenas_um_caracter_alfabetico_minusculo() {
+        departamento = Fixture.from(Departamento.class).gimme("atributo nome com apenas um caracter alfabetico minusculo");
+        assertFalse(Validacao.Valida(departamento));
+    }
 
-	@Test(expected = IllegalArgumentException.class)
-	public void nao_deve_aceitar_atributo_nome_com_caracteres_especiais() {
-		departamento.setNome(Gerador.geraStringEspecialAleatoria(Gerador.geraNumeroAleatorio(1,10)));
-	}
+	@Test
+    public void nao_deve_aceitar_atributo_nome_com_apenas_um_caracter_numerico() {
+        departamento = Fixture.from(Departamento.class).gimme("atributo nome com apenas um caracter numerico");
+        assertFalse(Validacao.Valida(departamento));
+    }
+	
+	@Test
+    public void nao_deve_aceitar_atributo_nome_com_apenas_caracteres_numericos() {
+        departamento = Fixture.from(Departamento.class).gimme("atributo nome com caracteres numericos");
+        assertFalse(Validacao.Valida(departamento));
+    }
 
 	@Test
 	public void equals_verifier() {

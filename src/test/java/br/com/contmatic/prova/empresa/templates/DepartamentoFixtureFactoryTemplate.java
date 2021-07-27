@@ -14,7 +14,7 @@ public class DepartamentoFixtureFactoryTemplate implements TemplateLoader {
         
         Fixture.of(Departamento.class).addTemplate("valido", new Rule() {
             {
-                add("nome", random("Tecnologia","Programação","Recursos Humanos"));
+                add("nome", random("Recursos Humanos","Desenvolvimento","Tencologia","Programação"));
             }
         });
         
