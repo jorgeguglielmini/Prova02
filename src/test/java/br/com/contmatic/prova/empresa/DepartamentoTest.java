@@ -47,9 +47,9 @@ public class DepartamentoTest {
 	}
 
 	@Test
-	public void deve_aceitar_no_atributo_nome_uma_quantidade_de_caracteres_que_esteja_entre_1_e_199() {
-		int nome = Gerador.geraNumeroAleatorio(1, 199);
-		departamento.setNome(Gerador.geraStringAleatoria(nome));
+	public void nao_deve_aceitar_atributo_nome_com_apenas_um_caracter_alfabetico_maiusculo() {
+		departamento = Fixture.from(Departamento.class).gimme("atributo nome com apenas um caracter alfabetico maiusculo");
+		assertFalse(Validacao.Valida(departamento));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
