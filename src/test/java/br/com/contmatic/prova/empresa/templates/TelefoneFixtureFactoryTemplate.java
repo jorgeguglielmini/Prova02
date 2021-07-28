@@ -35,31 +35,31 @@ public class TelefoneFixtureFactoryTemplate implements TemplateLoader {
 
         Fixture.of(Telefone.class).addTemplate("atributo numero com digito 0 no início e contendo a quantidade correta de digitos").inherits("valido", new Rule() {
             {
-                add("numero", new Generex("^[0]{1}[0-9]{7,8}").random());
+                add("numero", new Generex("^[0][0-9]{7,8}").random());
             }
         });
-        
+
         Fixture.of(Telefone.class).addTemplate("atributo numero com caracteres alfabeticos").inherits("valido", new Rule() {
             {
                 add("numero", new Generex("[a-zA-Z]{8,9}").random());
             }
         });
-        
+
         Fixture.of(Telefone.class).addTemplate("atributo numero com caracteres alfabeticos e numericos").inherits("valido", new Rule() {
             {
                 add("numero", new Generex("[a-zA-Z0-9]{8,9}").random());
             }
         });
-        
+
         Fixture.of(Telefone.class).addTemplate("atributo numero com espaco em branco no inicio").inherits("valido", new Rule() {
             {
-                add("numero", new Generex("[ 0-9]{8-9}").random());
+                add("numero", new Generex("[ 0-9]{8,9}").random());
             }
         });
-        
+
         Fixture.of(Telefone.class).addTemplate("atributo numero com espaco em branco no final").inherits("valido", new Rule() {
             {
-                add("numero", new Generex("[0-9 ]{8-9}").random());
+                add("numero", new Generex("[0-9 ]{8,9}").random());
             }
         });
 

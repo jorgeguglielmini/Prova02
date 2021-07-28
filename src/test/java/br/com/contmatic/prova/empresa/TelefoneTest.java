@@ -36,13 +36,6 @@ public class TelefoneTest {
         System.out.println("Mensagem não será exibida pois há a annotation @Ignore");
     }
 
-    @Test(timeout = 100)
-    public void step_02_teste_timeout() {
-        for(int i = 0 ; i < 10 ; i++) {
-            new Telefone(DDD.DDD_11, "123456789");
-        }
-    }
-
     @Test
     public void step_03_todos_atributos_validos() {
         assertTrue(Validacao.Valida(telefone));
